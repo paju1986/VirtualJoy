@@ -16,6 +16,8 @@ VirtualJoystick::VirtualJoystick(QObject *parent) : QObject(parent) {
     ioctl(uinput_fd, UI_SET_EVBIT, EV_ABS);
     ioctl(uinput_fd, UI_SET_ABSBIT, ABS_X);
     ioctl(uinput_fd, UI_SET_ABSBIT, ABS_Y);
+    ioctl(uinput_fd, UI_SET_ABSBIT, ABS_RX);
+    ioctl(uinput_fd, UI_SET_ABSBIT, ABS_RY);
     ioctl(uinput_fd, UI_SET_EVBIT, EV_KEY);
     ioctl(uinput_fd, UI_SET_EVBIT, EV_SYN);
 
@@ -25,6 +27,10 @@ VirtualJoystick::VirtualJoystick(QObject *parent) : QObject(parent) {
     ioctl(uinput_fd, UI_SET_KEYBIT, BTN_Y);
     ioctl(uinput_fd, UI_SET_KEYBIT, BTN_START);
     ioctl(uinput_fd, UI_SET_KEYBIT, BTN_SELECT);
+    ioctl(uinput_fd, UI_SET_KEYBIT, BTN_DPAD_UP);
+    ioctl(uinput_fd, UI_SET_KEYBIT, BTN_DPAD_DOWN);
+    ioctl(uinput_fd, UI_SET_KEYBIT, BTN_DPAD_LEFT);
+    ioctl(uinput_fd, UI_SET_KEYBIT, BTN_DPAD_RIGHT);
 
     struct uinput_user_dev uidev;
     memset(&uidev, 0, sizeof(uidev));
@@ -41,6 +47,13 @@ VirtualJoystick::VirtualJoystick(QObject *parent) : QObject(parent) {
     uidev.absmin[ABS_Y] = -32767;
     uidev.absmax[ABS_Y] = 32767;
     uidev.absflat[ABS_X] = 15;
+
+    uidev.absmin[ABS_RX] = -32767;
+    uidev.absmax[ABS_RX] = 32767;
+    uidev.absflat[ABS_RX] = 15;
+    uidev.absmin[ABS_RY] = -32767;
+    uidev.absmax[ABS_RY] = 32767;
+    uidev.absflat[ABS_RX] = 15;
 
     write(uinput_fd, &uidev, sizeof(uidev));
     ioctl(uinput_fd, UI_DEV_CREATE);
@@ -66,10 +79,18 @@ void VirtualJoystick::emit_event(uint16_t type, uint16_t code, int32_t value) {
     write(uinput_fd, &ev, sizeof(ev));
 }
 
-void VirtualJoystick::moveAxis(int x, int y) {
+void VirtualJoystick::moveAxisXY(int x, int y) {
     emit_event(EV_ABS, ABS_X, x);
     emit_event(EV_SYN, SYN_REPORT, 0);
     emit_event(EV_ABS, ABS_Y, y);
+    emit_event(EV_SYN, SYN_REPORT, 0);
+
+}
+
+void VirtualJoystick::moveAxisRXY(int x, int y) {
+    emit_event(EV_ABS, ABS_RX, x);
+    emit_event(EV_SYN, SYN_REPORT, 0);
+    emit_event(EV_ABS, ABS_RY, y);
     emit_event(EV_SYN, SYN_REPORT, 0);
 
 }

@@ -12,7 +12,8 @@ public:
     explicit VirtualJoystick(QObject *parent = nullptr);
     ~VirtualJoystick();
 
-    Q_INVOKABLE void moveAxis(int x, int y);
+    Q_INVOKABLE void moveAxisXY(int x, int y);
+    Q_INVOKABLE void moveAxisRXY(int x, int y);
     Q_INVOKABLE void button( int code, int value);
 
 private:

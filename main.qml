@@ -9,14 +9,16 @@ Window {
     width: 800
     height: 480
     title: qsTr("Virtual Gamepad")
+    // completely transparent background
+    visibility: "Maximized"
+    flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool | Qt.WindowTransparentForInput
+    color: "transparent"
+
     // Load the button code "struct"
     ButtonCodes {
         id: buttons
     }
 
-    Rectangle {
-        anchors.fill: parent
-        color: "#202020"
 
         // LEFT JOYSTICK
         Joystick {
@@ -24,7 +26,7 @@ Window {
             anchors.left: parent.left
             anchors.bottom: parent.bottom
             anchors.margins:  parent.width * 0.05
-            onJoystickMoved: joystick.moveAxis(dx, dy)
+            onJoystickMoved: joystick.moveAxisXY(dx, dy)
         }
 
         // RIGHT JOYSTICK
@@ -33,17 +35,17 @@ Window {
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.margins:  parent.width * 0.05
-            onJoystickMoved: console.log("Right joystick:", dx, dy)
+            onJoystickMoved: joystick.moveAxisRXY(dx, dy)
         }
 
         // BUTTONS (A, B, X, Y)
         RoundGamepadButton {
             id: btnA
             label: "A"
+            anchors.top: parent.top
             anchors.right: parent.right
-            anchors.top: parent.verticalCenter
-            anchors.rightMargin: parent.width * 0.1
-            anchors.topMargin: -parent.height * 0.05
+            anchors.topMargin: parent.height * 0.6
+            anchors.rightMargin: parent.width * 0.15
             onButtonPressed: joystick.button(buttons.btn_A, 1)
             onButtonReleased: joystick.button(buttons.btn_A, 0)
 
@@ -52,10 +54,10 @@ Window {
         RoundGamepadButton {
             id: btnB
             label: "B"
+            anchors.top: parent.top
             anchors.right: parent.right
-            anchors.top: btnA.bottom
-            anchors.topMargin: parent.height * 0.02
-            anchors.rightMargin: parent.width * 0.06
+            anchors.topMargin: parent.height * 0.5
+            anchors.rightMargin: parent.width * 0.1
             onButtonPressed: joystick.button(buttons.btn_B, 1)
             onButtonReleased: joystick.button(buttons.btn_B, 0)
         }
@@ -63,9 +65,10 @@ Window {
         RoundGamepadButton {
             id: btnX
             label: "X"
-            anchors.right: btnA.left
-            anchors.rightMargin: parent.width * 0.04
-            anchors.verticalCenter: btnA.verticalCenter
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.topMargin: parent.height * 0.5
+            anchors.rightMargin: parent.width * 0.2
             onButtonPressed: joystick.button(buttons.btn_X, 1)
             onButtonReleased: joystick.button(buttons.btn_X, 0)
         }
@@ -73,11 +76,82 @@ Window {
         RoundGamepadButton {
             id: btnY
             label: "Y"
-            anchors.bottom: btnA.top
-            anchors.bottomMargin: parent.height * 0.02
-            anchors.right: btnA.right
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.topMargin: parent.height * 0.4
+            anchors.rightMargin: parent.width * 0.15
             onButtonPressed: joystick.button(buttons.btn_Y, 1)
             onButtonReleased: joystick.button(buttons.btn_Y, 0)
         }
-    }
+
+        RoundGamepadButton {
+            id: btnExit
+            label: "Exit"
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.topMargin: parent.height * 0.01
+            anchors.rightMargin: parent.width * 0.01
+            onButtonPressed: Qt.quit()
+        }
+        RoundGamepadButton {
+            id: btnDpadUp
+            label: "up"
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.topMargin: parent.height * 0.4
+            anchors.leftMargin: parent.width * 0.15
+            onButtonPressed: joystick.button(buttons.btn_DPAD_UP, 1)
+            onButtonReleased: joystick.button(buttons.btn_DPAD_UP, 0)
+        }
+        RoundGamepadButton {
+            id: btnDpadDown
+            label: "down"
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.topMargin: parent.height * 0.6
+            anchors.leftMargin: parent.width * 0.15
+            onButtonPressed: joystick.button(buttons.btn_DPAD_DOWN, 1)
+            onButtonReleased: joystick.button(buttons.btn_DPAD_DOWN, 0)
+        }
+        RoundGamepadButton {
+            id: btnDpadRight
+            label: "right"
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.topMargin: parent.height * 0.5
+            anchors.leftMargin: parent.width * 0.2
+            onButtonPressed: joystick.button(buttons.btn_DPAD_RIGHT, 1)
+            onButtonReleased: joystick.button(buttons.btn_DPAD_RIGHT, 0)
+        }
+        RoundGamepadButton {
+            id: btnDpadLeft
+            label: "left"
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.topMargin: parent.height * 0.5
+            anchors.leftMargin: parent.width * 0.1
+            onButtonPressed: joystick.button(buttons.btn_DPAD_LEFT, 1)
+            onButtonReleased: joystick.button(buttons.btn_DPAD_LEFT, 0)
+        }
+        RoundGamepadButton {
+            id: btnStart
+            label: "Start"
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.bottomMargin: parent.height * 0.1
+            anchors.leftMargin: parent.width * 0.4
+            onButtonPressed: joystick.button(buttons.btn_START, 1)
+            onButtonReleased: joystick.button(buttons.btn_START, 0)
+        }
+        RoundGamepadButton {
+            id: btnSelect
+            label: "Select"
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            anchors.bottomMargin: parent.height * 0.1
+            anchors.rightMargin: parent.width * 0.4
+            onButtonPressed: joystick.button(buttons.btn_SELECT, 1)
+            onButtonReleased: joystick.button(buttons.btn_SELECT, 0)
+        }
+
 }

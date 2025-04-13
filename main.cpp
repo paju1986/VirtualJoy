@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickWindow>
 #include "virtualjoystick.h"
 
 int main(int argc, char *argv[])
@@ -17,6 +18,10 @@ int main(int argc, char *argv[])
         &app, [url](QObject *obj, const QUrl &objUrl) {
             if (!obj && url == objUrl)
                 QCoreApplication::exit(-1);
+            QQuickWindow *window = qobject_cast<QQuickWindow *>(obj);
+        if (window) {
+            window->setColor(Qt::transparent);  // Transparent background
+        }
         }, Qt::QueuedConnection);
 
     engine.load(url);

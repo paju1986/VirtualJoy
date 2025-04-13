@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_VirtualJoystick_t {
-    QByteArrayData data[8];
-    char stringdata0[48];
+    QByteArrayData data[9];
+    char stringdata0[62];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,17 +33,18 @@ struct qt_meta_stringdata_VirtualJoystick_t {
 static const qt_meta_stringdata_VirtualJoystick_t qt_meta_stringdata_VirtualJoystick = {
     {
 QT_MOC_LITERAL(0, 0, 15), // "VirtualJoystick"
-QT_MOC_LITERAL(1, 16, 8), // "moveAxis"
-QT_MOC_LITERAL(2, 25, 0), // ""
-QT_MOC_LITERAL(3, 26, 1), // "x"
-QT_MOC_LITERAL(4, 28, 1), // "y"
-QT_MOC_LITERAL(5, 30, 6), // "button"
-QT_MOC_LITERAL(6, 37, 4), // "code"
-QT_MOC_LITERAL(7, 42, 5) // "value"
+QT_MOC_LITERAL(1, 16, 10), // "moveAxisXY"
+QT_MOC_LITERAL(2, 27, 0), // ""
+QT_MOC_LITERAL(3, 28, 1), // "x"
+QT_MOC_LITERAL(4, 30, 1), // "y"
+QT_MOC_LITERAL(5, 32, 11), // "moveAxisRXY"
+QT_MOC_LITERAL(6, 44, 6), // "button"
+QT_MOC_LITERAL(7, 51, 4), // "code"
+QT_MOC_LITERAL(8, 56, 5) // "value"
 
     },
-    "VirtualJoystick\0moveAxis\0\0x\0y\0button\0"
-    "code\0value"
+    "VirtualJoystick\0moveAxisXY\0\0x\0y\0"
+    "moveAxisRXY\0button\0code\0value"
 };
 #undef QT_MOC_LITERAL
 
@@ -53,7 +54,7 @@ static const uint qt_meta_data_VirtualJoystick[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -61,12 +62,14 @@ static const uint qt_meta_data_VirtualJoystick[] = {
        0,       // signalCount
 
  // methods: name, argc, parameters, tag, flags
-       1,    2,   24,    2, 0x02 /* Public */,
-       5,    2,   29,    2, 0x02 /* Public */,
+       1,    2,   29,    2, 0x02 /* Public */,
+       5,    2,   34,    2, 0x02 /* Public */,
+       6,    2,   39,    2, 0x02 /* Public */,
 
  // methods: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    3,    4,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,    6,    7,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    3,    4,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    7,    8,
 
        0        // eod
 };
@@ -77,8 +80,9 @@ void VirtualJoystick::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         auto *_t = static_cast<VirtualJoystick *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->moveAxis((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 1: _t->button((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 0: _t->moveAxisXY((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 1: _t->moveAxisRXY((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 2: _t->button((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         default: ;
         }
     }
@@ -113,13 +117,13 @@ int VirtualJoystick::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }
