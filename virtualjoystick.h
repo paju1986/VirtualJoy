@@ -13,6 +13,7 @@ public:
     ~VirtualJoystick();
 
     Q_INVOKABLE void moveAxis(int x, int y);
+    Q_INVOKABLE void button( int code, int value);
 
 private:
     int uinput_fd;

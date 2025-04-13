@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>Joystick.qml</file>
         <file>RoundGamepadButton.qml</file>
+        <file>ButtonCodes.qml</file>
     </qresource>
 </RCC>

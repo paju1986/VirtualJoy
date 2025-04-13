@@ -17,9 +17,14 @@ VirtualJoystick::VirtualJoystick(QObject *parent) : QObject(parent) {
     ioctl(uinput_fd, UI_SET_ABSBIT, ABS_X);
     ioctl(uinput_fd, UI_SET_ABSBIT, ABS_Y);
     ioctl(uinput_fd, UI_SET_EVBIT, EV_KEY);
+    ioctl(uinput_fd, UI_SET_EVBIT, EV_SYN);
+
     ioctl(uinput_fd, UI_SET_KEYBIT, BTN_A);
     ioctl(uinput_fd, UI_SET_KEYBIT, BTN_B);
-    ioctl(uinput_fd, UI_SET_EVBIT, EV_SYN);
+    ioctl(uinput_fd, UI_SET_KEYBIT, BTN_X);
+    ioctl(uinput_fd, UI_SET_KEYBIT, BTN_Y);
+    ioctl(uinput_fd, UI_SET_KEYBIT, BTN_START);
+    ioctl(uinput_fd, UI_SET_KEYBIT, BTN_SELECT);
 
     struct uinput_user_dev uidev;
     memset(&uidev, 0, sizeof(uidev));
@@ -38,45 +43,8 @@ VirtualJoystick::VirtualJoystick(QObject *parent) : QObject(parent) {
     uidev.absflat[ABS_X] = 15;
 
     write(uinput_fd, &uidev, sizeof(uidev));
-    sleep(1);
     ioctl(uinput_fd, UI_DEV_CREATE);
-
     sleep(1);
-
-    // Simulate button A press
-    struct input_event ev;
-    memset(&ev, 0, sizeof(ev));
-    ev.type = EV_KEY;
-    ev.code = BTN_A;
-    ev.value = 1;
-    write(uinput_fd, &ev, sizeof(ev));
-
-    // Syn event
-    ev.type = EV_SYN;
-    ev.code = SYN_REPORT;
-    ev.value = 0;
-    write(uinput_fd, &ev, sizeof(ev));
-
-    sleep(1);
-
-    // Button release
-    ev.type = EV_KEY;
-    ev.code = BTN_A;
-    ev.value = 0;
-    write(uinput_fd, &ev, sizeof(ev));
-
-    ev.type = EV_SYN;
-    ev.code = SYN_REPORT;
-    ev.value = 0;
-    write(uinput_fd, &ev, sizeof(ev));
-
-    sleep(1);
-
-    std::cout << "Moving joystick to (10000, -10000)..." << std::endl;
-    emit_event(EV_ABS, ABS_X, 10000);
-    emit_event(EV_ABS, ABS_Y, -10000);
-    emit_event(EV_SYN, SYN_REPORT, 0);
-    sleep(5);
 
 }
 
@@ -104,4 +72,9 @@ void VirtualJoystick::moveAxis(int x, int y) {
     emit_event(EV_ABS, ABS_Y, y);
     emit_event(EV_SYN, SYN_REPORT, 0);
 
+}
+
+void VirtualJoystick::button(int code, int value) {
+    emit_event(EV_KEY, code, value);
+    emit_event(EV_SYN, SYN_REPORT, 0);
 }

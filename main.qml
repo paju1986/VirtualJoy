@@ -9,6 +9,10 @@ Window {
     width: 800
     height: 480
     title: qsTr("Virtual Gamepad")
+    // Load the button code "struct"
+    ButtonCodes {
+        id: buttons
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -40,7 +44,9 @@ Window {
             anchors.top: parent.verticalCenter
             anchors.rightMargin: parent.width * 0.1
             anchors.topMargin: -parent.height * 0.05
-            onClicked: console.log("A pressed")
+            onButtonPressed: joystick.button(buttons.btn_A, 1)
+            onButtonReleased: joystick.button(buttons.btn_A, 0)
+
         }
 
         RoundGamepadButton {
@@ -50,7 +56,8 @@ Window {
             anchors.top: btnA.bottom
             anchors.topMargin: parent.height * 0.02
             anchors.rightMargin: parent.width * 0.06
-            onClicked: console.log("B pressed")
+            onButtonPressed: joystick.button(buttons.btn_B, 1)
+            onButtonReleased: joystick.button(buttons.btn_B, 0)
         }
 
         RoundGamepadButton {
@@ -59,7 +66,8 @@ Window {
             anchors.right: btnA.left
             anchors.rightMargin: parent.width * 0.04
             anchors.verticalCenter: btnA.verticalCenter
-            onClicked: console.log("X pressed")
+            onButtonPressed: joystick.button(buttons.btn_X, 1)
+            onButtonReleased: joystick.button(buttons.btn_X, 0)
         }
 
         RoundGamepadButton {
@@ -68,7 +76,8 @@ Window {
             anchors.bottom: btnA.top
             anchors.bottomMargin: parent.height * 0.02
             anchors.right: btnA.right
-            onClicked: console.log("Y pressed")
+            onButtonPressed: joystick.button(buttons.btn_Y, 1)
+            onButtonReleased: joystick.button(buttons.btn_Y, 0)
         }
     }
 }
