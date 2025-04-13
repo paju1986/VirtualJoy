@@ -153,5 +153,45 @@ Window {
             onButtonPressed: joystick.button(buttons.btn_SELECT, 1)
             onButtonReleased: joystick.button(buttons.btn_SELECT, 0)
         }
+          RoundGamepadButton {
+            id: btnTL
+            label: "TL"
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.topMargin: parent.height * 0.02
+            anchors.leftMargin: parent.width * 0.1
+            onButtonPressed: joystick.button(buttons.btn_TL, 1)
+            onButtonReleased: joystick.button(buttons.btn_TL, 0)
+        }
+          RoundGamepadButton {
+            id: btnTR
+            label: "TR"
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.topMargin: parent.height * 0.02
+            anchors.rightMargin: parent.width * 0.1
+            onButtonPressed: joystick.button(buttons.btn_TR, 1)
+            onButtonReleased: joystick.button(buttons.btn_TR, 0)
+        }
+          RoundGamepadButton {
+            id: btnTL2
+            label: "TL2"
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.topMargin: parent.height * 0.1
+            anchors.leftMargin: parent.width * 0.1
+            onButtonPressed: joystick.button(buttons.btn_TL2, 1)
+            onButtonReleased: joystick.button(buttons.btn_TL2, 0)
+        }
+          RoundGamepadButton {
+            id: btnTR2
+            label: "TR2"
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.topMargin: parent.height * 0.1
+            anchors.rightMargin: parent.width * 0.1
+            onButtonPressed: joystick.button(buttons.btn_TR2, 1)
+            onButtonReleased: joystick.button(buttons.btn_TR2, 0)
+        }
 
 }

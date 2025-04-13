@@ -32,6 +32,11 @@ VirtualJoystick::VirtualJoystick(QObject *parent) : QObject(parent) {
     ioctl(uinput_fd, UI_SET_KEYBIT, BTN_DPAD_LEFT);
     ioctl(uinput_fd, UI_SET_KEYBIT, BTN_DPAD_RIGHT);
 
+    ioctl(uinput_fd, UI_SET_KEYBIT, BTN_TL);
+    ioctl(uinput_fd, UI_SET_KEYBIT, BTN_TR);
+    ioctl(uinput_fd, UI_SET_KEYBIT, BTN_TL2);
+    ioctl(uinput_fd, UI_SET_KEYBIT, BTN_TR2);
+
     struct uinput_user_dev uidev;
     memset(&uidev, 0, sizeof(uidev));
     snprintf(uidev.name, UINPUT_MAX_NAME_SIZE, "Virtual Gamepad");
