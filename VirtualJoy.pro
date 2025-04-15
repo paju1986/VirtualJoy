@@ -1,7 +1,7 @@
 QT += quick gui
 CONFIG += c++17
 
-TARGET = onscreengamepad
+TARGET = virtualjoy
 TEMPLATE = app
 
 SOURCES += \
