@@ -16,6 +16,8 @@ Window {
     flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool | Qt.WindowTransparentForInput
     color: "transparent"
 
+    property int mode: 0
+
     // Define a Settings object
     Settings {
         id: appSettings
@@ -23,8 +25,12 @@ Window {
         property int leftStick_X
         property int leftStick_Y
 
+        property int leftStick_W
+
         property int rightStick_X
         property int rightStick_Y
+
+        property int rightStick_W
 
         property int btnA_X
         property int btnB_X
@@ -55,14 +61,47 @@ Window {
         property int btnDpadDown_Y
         property int btnDpadLeft_Y
         property int btnDpadRight_Y
+
+        property int btnA_W
+        property int btnB_W
+        property int btnX_W
+        property int btnY_W
+        property int btnTL_W
+        property int btnTL2_W
+        property int btnTR_W
+        property int btnTR2_W
+        property int btnSelect_W
+        property int btnStart_W
+        property int btnDpadUp_W
+        property int btnDpadDown_W
+        property int btnDpadLeft_W
+        property int btnDpadRight_W
+
+        property int btnA_H
+        property int btnB_H
+        property int btnX_H
+        property int btnY_H
+        property int btnTL_H
+        property int btnTL2_H
+        property int btnTR_H
+        property int btnTR2_H
+        property int btnSelect_H
+        property int btnStart_H
+        property int btnDpadUp_H
+        property int btnDpadDown_H
+        property int btnDpadLeft_H
+        property int btnDpadRight_H
     }
     function savePosition() {
 
         appSettings.leftStick_X = leftStick.x;
         appSettings.leftStick_Y = leftStick.y;
+        appSettings.leftStick_W = leftStick.width;
 
         appSettings.rightStick_X = rightStick.x;
         appSettings.rightStick_Y = rightStick.y;
+
+        appSettings.rightStick_W = rightStick.width;
 
         appSettings.btnA_X = btnA.x
         appSettings.btnB_X = btnB.x
@@ -94,11 +133,69 @@ Window {
         appSettings.btnDpadLeft_Y = btnDpadLeft.y
         appSettings.btnDpadRight_Y = btnDpadRight.y
 
+        appSettings.btnA_W = btnA.width
+        appSettings.btnB_W = btnB.width
+        appSettings.btnX_W = btnX.width
+        appSettings.btnY_W = btnY.width
+        appSettings.btnTL_W = btnTL.width
+        appSettings.btnTL2_W = btnTL2.width
+        appSettings.btnTR_W = btnTR.width
+        appSettings.btnTR2_W = btnTR2.width
+        appSettings.btnSelect_W = btnSelect.width
+        appSettings.btnStart_W = btnStart.width
+        appSettings.btnDpadUp_W = btnDpadUp.width
+        appSettings.btnDpadDown_W = btnDpadDown.width
+        appSettings.btnDpadLeft_W = btnDpadLeft.width
+        appSettings.btnDpadRight_W = btnDpadRight.width
+
+        appSettings.btnA_H = btnA.height
+        appSettings.btnB_H = btnB.height
+        appSettings.btnX_H = btnX.height
+        appSettings.btnY_H = btnY.height
+        appSettings.btnTL_H = btnTL.height
+        appSettings.btnTL2_H = btnTL2.height
+        appSettings.btnTR_H = btnTR.height
+        appSettings.btnTR2_H = btnTR2.height
+        appSettings.btnSelect_H = btnSelect.height
+        appSettings.btnStart_H = btnStart.height
+        appSettings.btnDpadUp_H = btnDpadUp.height
+        appSettings.btnDpadDown_H = btnDpadDown.height
+        appSettings.btnDpadLeft_H = btnDpadLeft.height
+        appSettings.btnDpadRight_H = btnDpadRight.height
+
+    }
+
+    function changeMode() {
+        console.log(root.mode)
+        if(root.mode == 0) {
+            message.text = "Move mode"
+            message.color = "red"
+
+            root.mode = 1;
+        } else if(root.mode == 1) {
+            root.mode = 2;
+            message.text = "Resize mode"
+            message.color = "blue"
+            root.savePosition();
+        } else {
+            message.text = ""
+            root.mode = 0;
+            root.savePosition();
+        }
     }
 
     // Load the button code "struct"
     ButtonCodes {
         id: buttons
+    }
+
+    Text {
+        id: message
+        text: ""
+        font.pixelSize: 32
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: parent.top * 0.2
     }
 
 
@@ -107,9 +204,9 @@ Window {
             id: leftStick
             x: appSettings.leftStick_X || null
             y: appSettings.leftStick_Y || null
-            anchors.left: parent.left
-            anchors.bottom: parent.bottom
-            anchors.margins:  parent.width * 0.05
+            width: appSettings.leftStick_W || null
+            height: appSettings.leftStick_W || null
+            mode: root.mode
             onJoystickMoved: joystick.moveAxisXY(dx, dy)
         }
 
@@ -118,9 +215,9 @@ Window {
             id: rightStick
             x: appSettings.rightStick_X || null
             y: appSettings.rightStick_Y || null
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            anchors.margins:  parent.width * 0.05
+            width: appSettings.rightStick_W || null
+            height: appSettings.rightStick_W || null
+            mode: root.mode
             onJoystickMoved: joystick.moveAxisRXY(dx, dy)
         }
 
@@ -129,11 +226,14 @@ Window {
             id: btnA
             x: appSettings.btnA_X || null
             y: appSettings.btnA_Y || null
+            width: appSettings.btnA_W || null
+            height: appSettings.btnA_H || null
             label: "A"
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.topMargin: parent.height * 0.6
-            anchors.rightMargin: parent.width * 0.15
+            mode: root.mode
+            // anchors.top: parent.top
+            // anchors.right: parent.right
+            // anchors.topMargin: parent.height * 0.6
+            // anchors.rightMargin: parent.width * 0.15
             onButtonPressed: joystick.button(buttons.btn_A, 1)
             onButtonReleased: joystick.button(buttons.btn_A, 0)
 
@@ -143,11 +243,10 @@ Window {
             id: btnB
             x: appSettings.btnB_X || null
             y: appSettings.btnB_Y || null
+            width: appSettings.btnB_W || null
+            height: appSettings.btnB_H || null
             label: "B"
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.topMargin: parent.height * 0.5
-            anchors.rightMargin: parent.width * 0.1
+            mode: root.mode
             onButtonPressed: joystick.button(buttons.btn_B, 1)
             onButtonReleased: joystick.button(buttons.btn_B, 0)
         }
@@ -156,11 +255,10 @@ Window {
             id: btnX
             x: appSettings.btnX_X || null
             y: appSettings.btnX_Y || null
+            width: appSettings.btnX_W || null
+            height: appSettings.btnX_H || null
             label: "X"
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.topMargin: parent.height * 0.5
-            anchors.rightMargin: parent.width * 0.2
+            mode: root.mode
             onButtonPressed: joystick.button(buttons.btn_X, 1)
             onButtonReleased: joystick.button(buttons.btn_X, 0)
         }
@@ -169,11 +267,10 @@ Window {
             id: btnY
             x: appSettings.btnY_X || null
             y: appSettings.btnY_Y || null
+            width: appSettings.btnY_W || null
+            height: appSettings.btnY_H || null
             label: "Y"
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.topMargin: parent.height * 0.4
-            anchors.rightMargin: parent.width * 0.15
+            mode: root.mode
             onButtonPressed: joystick.button(buttons.btn_Y, 1)
             onButtonReleased: joystick.button(buttons.btn_Y, 0)
         }
@@ -188,25 +285,22 @@ Window {
             onButtonPressed: Qt.quit()
         }
         RectangularGamepadButton {
-            id: btnSave
-            label: "Save"
+            id: btnMode
+            label: "Mode"
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.topMargin: parent.height * 0.01
             anchors.leftMargin: parent.width * 0.01
-            onButtonPressed: savePosition()
+            onButtonReleased: changeMode();
         }
         RectangularGamepadButton {
             id: btnDpadUp
             x: appSettings.btnDpadUp_X || null
             y: appSettings.btnDpadUp_Y || null
+            width: appSettings.btnDpadUp_W || null
+            height: appSettings.btnDpadUp_H || null
             label: "↑"
-            width: 80
-            height: 160
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.topMargin: parent.height * 0.4
-            anchors.leftMargin: parent.width * 0.15
+            mode: root.mode
             onButtonPressed: joystick.button(buttons.btn_DPAD_UP, 1)
             onButtonReleased: joystick.button(buttons.btn_DPAD_UP, 0)
         }
@@ -214,13 +308,10 @@ Window {
             id: btnDpadDown
             x: appSettings.btnDpadDown_X || null
             y: appSettings.btnDpadDown_Y || null
+            width: appSettings.btnDpadDown_W || null
+            height: appSettings.btnDpadDown_H || null
             label: "↓"
-            width: 80
-            height: 160
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.topMargin: parent.height * 0.6
-            anchors.leftMargin: parent.width * 0.15
+            mode: root.mode
             onButtonPressed: joystick.button(buttons.btn_DPAD_DOWN, 1)
             onButtonReleased: joystick.button(buttons.btn_DPAD_DOWN, 0)
         }
@@ -228,11 +319,10 @@ Window {
             id: btnDpadRight
             x: appSettings.btnDpadRight_X || null
             y: appSettings.btnDpadRight_Y || null
+            width: appSettings.btnDpadRight_W || null
+            height: appSettings.btnDpadRight_H || null
             label: "→"
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.topMargin: parent.height * 0.5
-            anchors.leftMargin: parent.width * 0.2
+            mode: root.mode
             onButtonPressed: joystick.button(buttons.btn_DPAD_RIGHT, 1)
             onButtonReleased: joystick.button(buttons.btn_DPAD_RIGHT, 0)
         }
@@ -240,11 +330,10 @@ Window {
             id: btnDpadLeft
             x: appSettings.btnDpadLeft_X || null
             y: appSettings.btnDpadLeft_Y || null
+            width: appSettings.btnDpadLeft_W || null
+            height: appSettings.btnDpadLeft_H || null
             label: "←"
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.topMargin: parent.height * 0.5
-            anchors.leftMargin: parent.width * 0.1
+            mode: root.mode
             onButtonPressed: joystick.button(buttons.btn_DPAD_LEFT, 1)
             onButtonReleased: joystick.button(buttons.btn_DPAD_LEFT, 0)
         }
@@ -252,11 +341,10 @@ Window {
             id: btnStart
             x: appSettings.btnStart_X || null
             y: appSettings.btnStart_Y || null
+            width: appSettings.btnStart_W || null
+            height: appSettings.btnStart_H || null
             label: "Start"
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.bottomMargin: parent.height * 0.1
-            anchors.leftMargin: parent.width * 0.4
+            mode: root.mode
             onButtonPressed: joystick.button(buttons.btn_START, 1)
             onButtonReleased: joystick.button(buttons.btn_START, 0)
         }
@@ -264,11 +352,10 @@ Window {
             id: btnSelect
             x: appSettings.btnSelect_X || null
             y: appSettings.btnSelect_Y || null
+            width: appSettings.btnSelect_W || null
+            height: appSettings.btnSelect_H || null
             label: "Select"
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            anchors.bottomMargin: parent.height * 0.1
-            anchors.rightMargin: parent.width * 0.4
+            mode: root.mode
             onButtonPressed: joystick.button(buttons.btn_SELECT, 1)
             onButtonReleased: joystick.button(buttons.btn_SELECT, 0)
         }
@@ -276,11 +363,10 @@ Window {
             id: btnTL
             x: appSettings.btnTL_X || null
             y: appSettings.btnTL_Y || null
+            width: appSettings.btnTL_W || null
+            height: appSettings.btnTL_H || null
             label: "TL"
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.topMargin: parent.height * 0.02
-            anchors.leftMargin: parent.width * 0.1
+            mode: root.mode
             onButtonPressed: joystick.button(buttons.btn_TL, 1)
             onButtonReleased: joystick.button(buttons.btn_TL, 0)
         }
@@ -288,11 +374,10 @@ Window {
             id: btnTR
             x: appSettings.btnTR_X || null
             y: appSettings.btnTR_Y || null
+            width: appSettings.btnTR_W || null
+            height: appSettings.btnTR_H || null
             label: "TR"
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.topMargin: parent.height * 0.02
-            anchors.rightMargin: parent.width * 0.1
+            mode: root.mode
             onButtonPressed: joystick.button(buttons.btn_TR, 1)
             onButtonReleased: joystick.button(buttons.btn_TR, 0)
         }
@@ -300,11 +385,10 @@ Window {
             id: btnTL2
             x: appSettings.btnTL2_X || null
             y: appSettings.btnTL2_Y || null
+            width: appSettings.btnTL2_W || null
+            height: appSettings.btnTL2_H || null
             label: "TL2"
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.topMargin: parent.height * 0.1
-            anchors.leftMargin: parent.width * 0.1
+            mode: root.mode
             onButtonPressed: joystick.button(buttons.btn_TL2, 1)
             onButtonReleased: joystick.button(buttons.btn_TL2, 0)
         }
@@ -312,11 +396,10 @@ Window {
             id: btnTR2
             x: appSettings.btnTR2_X || null
             y: appSettings.btnTR2_Y || null
+            width: appSettings.btnTR2_W || null
+            height: appSettings.btnTR2_H || null
             label: "TR2"
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.topMargin: parent.height * 0.1
-            anchors.rightMargin: parent.width * 0.1
+            mode: root.mode
             onButtonPressed: joystick.button(buttons.btn_TR2, 1)
             onButtonReleased: joystick.button(buttons.btn_TR2, 0)
         }

@@ -11,9 +11,52 @@ Button {
     signal buttonPressed()
     signal buttonReleased()
 
+    property real startX: 0
+    property real startY: 0
+
+    property int mode: 0
+
+    onModeChanged: {
+        if(mode == 1) {
+            body.border.color = "red"
+            rectangularButtonLabel.color = "red"
+        } else if(mode == 2) {
+            body.border.color = "blue"
+            rectangularButtonLabel.color = "blue"
+        } else {
+            body.border.color = "gray"
+            rectangularButtonLabel.color = "gray"
+        }
+    }
+
+    function drag(tp) {
+        console.log(tp.x);
+        let dx = tp.x - rectangularButton.startX
+        let dy = tp.y - rectangularButton.startY
+        rectangularButton.x += dx - rectangularButton.width / 2
+        rectangularButton.y += dy - rectangularButton.height / 2
+
+
+        // Update start position to new touch point for smooth dragging
+        //roundButton.startX = tp[0].x
+        //roundButton.startY = tp[0].y
+    }
+
+    function resize(tp) {
+
+        let dx = tp.x - rectangularButton.startX
+        let dy = tp.y - rectangularButton.startY
+        if(dx > 0 && dy > 0) {
+            rectangularButton.width = dx
+
+            rectangularButton.height = dy
+        }
+    }
+
     background: Rectangle {
-        color: "#4CAF50"
-        border.color: "#222"
+        id: body
+        color: "gray"
+        opacity:0.5
         border.width: 2
     }
 
@@ -38,14 +81,24 @@ Button {
                 TouchPoint { id: tp2 }
             ]
 
+
             onTouchUpdated: {
 
                 var tp1 = area.touchPoints[0];
-                if (tp1.pressed || tp1.updated) {
+                if(mode == 0) {
+                    console.log("touch")
+                    if (tp1.pressed || tp1.updated) {
                       rectangularButton.buttonPressed();
-                }
-                else {
-                    rectangularButton.buttonReleased();
+                    }
+                    else {
+                        rectangularButton.buttonReleased();
+                    }
+                } else if(mode == 1) {
+                    console.log("drag")
+                    drag(tp1);
+                } else {
+                    console.log("resize")
+                    resize(tp1);
                 }
 
             }
