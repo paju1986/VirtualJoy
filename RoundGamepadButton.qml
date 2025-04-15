@@ -46,7 +46,7 @@ Button {
 
         let dx = tp.x - roundButton.startX
         let dy = tp.y - roundButton.startY
-        if(dx > 0 && dy > 0) {
+        if(dx > 50 && dy > 50) {
             roundButton.width = dx
 
             roundButton.height = dy

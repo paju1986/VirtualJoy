@@ -39,7 +39,7 @@ Item {
 
         let dx = tp.x - stick.startX
         let dy = tp.x - stick.startX
-        if(dx > 0 && dy > 0) {
+        if(dx > 50 && dy > 50) {
             stick.width = dx
             knob.width = dx * 0.4
             stick.height = dy
