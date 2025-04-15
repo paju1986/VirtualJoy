@@ -2,10 +2,10 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 Button {
-    id: roundButton
-    property alias label: roundButtonLabel.text
+    id: rectangularButton
+    property alias label: rectangularButtonLabel.text
 
-    width: 80
+    width: 160
     height: 80
 
     signal buttonPressed()
@@ -13,14 +13,13 @@ Button {
 
     background: Rectangle {
         color: "#4CAF50"
-        radius: width / 2
         border.color: "#222"
         border.width: 2
     }
 
     contentItem: Text {
-        id: roundButtonLabel
-        anchors.centerIn: parent
+        id: rectangularButtonLabel
+        //anchors.centerIn: parent
         text: "A"
         color: "white"
         font.bold: true
@@ -43,10 +42,10 @@ Button {
 
                 var tp1 = area.touchPoints[0];
                 if (tp1.pressed || tp1.updated) {
-                      roundButton.buttonPressed();
+                      rectangularButton.buttonPressed();
                 }
                 else {
-                    roundButton.buttonReleased();
+                    rectangularButton.buttonReleased();
                 }
 
             }

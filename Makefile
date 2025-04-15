@@ -701,6 +701,7 @@ qrc_qml.cpp: qml.qrc \
 		/usr/bin/rcc \
 		RoundGamepadButton.qml \
 		Joystick.qml \
+		RectangularGamepadButton.qml \
 		ButtonCodes.qml \
 		main.qml
 	/usr/bin/rcc -name qml qml.qrc -o qrc_qml.cpp

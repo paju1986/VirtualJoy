@@ -84,7 +84,7 @@ Window {
             onButtonReleased: joystick.button(buttons.btn_Y, 0)
         }
 
-        RoundGamepadButton {
+        RectangularGamepadButton {
             id: btnExit
             label: "Exit"
             anchors.top: parent.top
@@ -93,7 +93,7 @@ Window {
             anchors.rightMargin: parent.width * 0.01
             onButtonPressed: Qt.quit()
         }
-        RoundGamepadButton {
+        RectangularGamepadButton {
             id: btnDpadUp
             label: "up"
             anchors.top: parent.top
@@ -103,7 +103,7 @@ Window {
             onButtonPressed: joystick.button(buttons.btn_DPAD_UP, 1)
             onButtonReleased: joystick.button(buttons.btn_DPAD_UP, 0)
         }
-        RoundGamepadButton {
+        RectangularGamepadButton {
             id: btnDpadDown
             label: "down"
             anchors.top: parent.top
@@ -113,7 +113,7 @@ Window {
             onButtonPressed: joystick.button(buttons.btn_DPAD_DOWN, 1)
             onButtonReleased: joystick.button(buttons.btn_DPAD_DOWN, 0)
         }
-        RoundGamepadButton {
+        RectangularGamepadButton {
             id: btnDpadRight
             label: "right"
             anchors.top: parent.top
@@ -123,7 +123,7 @@ Window {
             onButtonPressed: joystick.button(buttons.btn_DPAD_RIGHT, 1)
             onButtonReleased: joystick.button(buttons.btn_DPAD_RIGHT, 0)
         }
-        RoundGamepadButton {
+        RectangularGamepadButton {
             id: btnDpadLeft
             label: "left"
             anchors.top: parent.top
@@ -133,7 +133,7 @@ Window {
             onButtonPressed: joystick.button(buttons.btn_DPAD_LEFT, 1)
             onButtonReleased: joystick.button(buttons.btn_DPAD_LEFT, 0)
         }
-        RoundGamepadButton {
+        RectangularGamepadButton {
             id: btnStart
             label: "Start"
             anchors.bottom: parent.bottom
@@ -143,7 +143,7 @@ Window {
             onButtonPressed: joystick.button(buttons.btn_START, 1)
             onButtonReleased: joystick.button(buttons.btn_START, 0)
         }
-        RoundGamepadButton {
+        RectangularGamepadButton {
             id: btnSelect
             label: "Select"
             anchors.bottom: parent.bottom
@@ -153,7 +153,7 @@ Window {
             onButtonPressed: joystick.button(buttons.btn_SELECT, 1)
             onButtonReleased: joystick.button(buttons.btn_SELECT, 0)
         }
-          RoundGamepadButton {
+          RectangularGamepadButton {
             id: btnTL
             label: "TL"
             anchors.top: parent.top
@@ -163,7 +163,7 @@ Window {
             onButtonPressed: joystick.button(buttons.btn_TL, 1)
             onButtonReleased: joystick.button(buttons.btn_TL, 0)
         }
-          RoundGamepadButton {
+          RectangularGamepadButton {
             id: btnTR
             label: "TR"
             anchors.top: parent.top
@@ -173,7 +173,7 @@ Window {
             onButtonPressed: joystick.button(buttons.btn_TR, 1)
             onButtonReleased: joystick.button(buttons.btn_TR, 0)
         }
-          RoundGamepadButton {
+          RectangularGamepadButton {
             id: btnTL2
             label: "TL2"
             anchors.top: parent.top
@@ -183,7 +183,7 @@ Window {
             onButtonPressed: joystick.button(buttons.btn_TL2, 1)
             onButtonReleased: joystick.button(buttons.btn_TL2, 0)
         }
-          RoundGamepadButton {
+          RectangularGamepadButton {
             id: btnTR2
             label: "TR2"
             anchors.top: parent.top
