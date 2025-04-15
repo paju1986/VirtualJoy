@@ -7,6 +7,8 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    QCoreApplication::setOrganizationName("VirtualJoy");
+    QCoreApplication::setApplicationName("VirtualJoy");
 
     QQmlApplicationEngine engine;
     VirtualJoystick vjoy;
