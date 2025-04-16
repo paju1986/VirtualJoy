@@ -54,6 +54,7 @@ Item {
         height: parent.height
         radius: width / 2
         color: "#555"
+        opacity: 0.6
 
         Rectangle {
             id: knob

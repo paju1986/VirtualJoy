@@ -10,7 +10,7 @@ Window {
     visible: true
     width: 800
     height: 480
-    title: qsTr("Virtual Gamepad")
+    title: qsTr("VirtualJoy")
     // completely transparent background
     visibility: "Maximized"
     flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool //| Qt.WindowTransparentForInput
@@ -94,6 +94,7 @@ Window {
     }
     function savePosition() {
 
+        //Saving x and y and with and height of all controls to config file
         appSettings.leftStick_X = leftStick.x;
         appSettings.leftStick_Y = leftStick.y;
         appSettings.leftStick_W = leftStick.width;
@@ -166,20 +167,23 @@ Window {
     }
 
     function changeMode() {
+        //Changing between normal, move and resize modes
         console.log(root.mode)
         if(root.mode == 0) {
             message.text = "Move mode"
             message.color = "red"
-
             root.mode = 1;
+            console.log("Move mode")
         } else if(root.mode == 1) {
             root.mode = 2;
             message.text = "Resize mode"
             message.color = "blue"
+            console.log("Resize mode")
             root.savePosition();
         } else {
             message.text = ""
             root.mode = 0;
+            console.log("Normal mode")
             root.savePosition();
         }
     }
@@ -189,6 +193,7 @@ Window {
         id: buttons
     }
 
+    // Message for showing current mode
     Text {
         id: message
         text: ""

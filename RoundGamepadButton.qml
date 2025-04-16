@@ -16,6 +16,7 @@ Button {
 
     property int mode: 0
 
+    //feedback of current mode by changing border color
     onModeChanged: {
         if(mode == 1) {
             body.border.color = "red"
@@ -30,6 +31,7 @@ Button {
     }
 
     function drag(tp) {
+        //function for drag functionality on move mode
         console.log(tp.x);
         let dx = tp.x - roundButton.startX
         let dy = tp.y - roundButton.startY
@@ -43,6 +45,7 @@ Button {
     }
 
     function resize(tp) {
+        //funtion for resize funtionality on resize mode
 
         let dx = tp.x - roundButton.startX
         let dy = tp.y - roundButton.startY
@@ -86,9 +89,10 @@ Button {
             onTouchUpdated: {
 
                 var tp1 = area.touchPoints[0];
-                if(mode == 0) {
+                if(mode == 0) { //controls behaviour on different modes
                     if (tp1.pressed || tp1.updated) {
                       roundButton.buttonPressed();
+                      //feedback for touch
                       body.color = "white"
                       body.opacity = 1
                     }

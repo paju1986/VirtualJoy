@@ -87,7 +87,6 @@ Button {
 
                 var tp1 = area.touchPoints[0];
                 if(mode == 0) {
-                    console.log("touch")
                     if (tp1.pressed || tp1.updated) {
                       rectangularButton.buttonPressed();
                       body.color = "white"
