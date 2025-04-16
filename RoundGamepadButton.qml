@@ -1,5 +1,5 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick 6.4
+import QtQuick.Controls 6.4
 
 Button {
     id: roundButton

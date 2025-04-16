@@ -1,5 +1,5 @@
 // ButtonCodes.qml
-import QtQuick 2.15
+import QtQuick 6.4
 Item {
     id: buttoncodes
     // Common gamepad buttons (values taken from linux/input-event-codes.h)

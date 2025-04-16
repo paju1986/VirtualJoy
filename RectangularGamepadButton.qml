@@ -1,5 +1,5 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick 6.4
+import QtQuick.Controls 6.4
 
 Button {
     id: rectangularButton
@@ -84,7 +84,6 @@ Button {
 
 
             onTouchUpdated: {
-
                 var tp1 = area.touchPoints[0];
                 if(mode == 0) {
                     if (tp1.pressed || tp1.updated) {
