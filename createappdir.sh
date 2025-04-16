@@ -1,0 +1,9 @@
+mkdir -p AppDir/usr/bin
+mkdir -p AppDir/usr/lib
+mkdir -p AppDir/usr/share/applications
+mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
+cp ./VirtualJoy AppDir/usr/bin/
+cp ./*.qml  AppDir/usr/bin/
+cp ./VirtualJoy.conf AppDir/usr/bin/
+cp ./VirtualJoy.desktop AppDir/usr/share/applications/
+cp ./VirtualJoy.png AppDir/usr/share/icons/hicolor/256x256/apps/
