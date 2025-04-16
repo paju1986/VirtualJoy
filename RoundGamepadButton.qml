@@ -54,19 +54,19 @@ Button {
     }
 
     background: Rectangle {
-        color: "gray"
-        opacity:0.5
+        color: "transparent"
+        opacity:0.6
         id: body
         radius: width / 2
         border.color: "gray"
-        border.width: 2
+        border.width: 4
     }
 
     contentItem: Text {
         id: roundButtonLabel
         anchors.centerIn: parent
         text: "A"
-        color: "white"
+        color: "grey"
         font.bold: true
         font.pixelSize: 24
         width: parent.width
@@ -87,18 +87,19 @@ Button {
 
                 var tp1 = area.touchPoints[0];
                 if(mode == 0) {
-                    console.log("touch")
                     if (tp1.pressed || tp1.updated) {
                       roundButton.buttonPressed();
+                      body.color = "white"
+                      body.opacity = 1
                     }
                     else {
                         roundButton.buttonReleased();
+                        body.color = "transparent"
+                        body.opacity = 0.6
                     }
                 } else if(mode == 1) {
-                    console.log("drag")
                     drag(tp1);
                 } else {
-                    console.log("resize")
                     resize(tp1);
                 }
 

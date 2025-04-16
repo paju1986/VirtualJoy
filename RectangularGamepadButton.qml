@@ -55,16 +55,17 @@ Button {
 
     background: Rectangle {
         id: body
-        color: "gray"
-        opacity:0.5
-        border.width: 2
+        color: "transparent"
+        opacity:0.6
+        border.width:4
+        border.color: "grey"
     }
 
     contentItem: Text {
         id: rectangularButtonLabel
         //anchors.centerIn: parent
         text: "A"
-        color: "white"
+        color: "gray"
         font.bold: true
         font.pixelSize: 24
         width: parent.width
@@ -89,15 +90,17 @@ Button {
                     console.log("touch")
                     if (tp1.pressed || tp1.updated) {
                       rectangularButton.buttonPressed();
+                      body.color = "white"
+                      body.opacity = 1
                     }
                     else {
                         rectangularButton.buttonReleased();
+                        body.color = "transparent"
+                        body.opacity = 0.6
                     }
                 } else if(mode == 1) {
-                    console.log("drag")
                     drag(tp1);
                 } else {
-                    console.log("resize")
                     resize(tp1);
                 }
 

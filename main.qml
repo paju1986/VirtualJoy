@@ -13,7 +13,7 @@ Window {
     title: qsTr("Virtual Gamepad")
     // completely transparent background
     visibility: "Maximized"
-    flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool | Qt.WindowTransparentForInput
+    flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool //| Qt.WindowTransparentForInput
     color: "transparent"
 
     property int mode: 0
