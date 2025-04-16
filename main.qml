@@ -2,7 +2,7 @@ import QtQuick 6.4
 import QtQuick.Controls 6.4
 import QtQuick.Layouts 6.4
 import QtQuick.Window 6.4
-import QtCore 6
+import Qt.labs.settings 1.0
 
 
 Window {
